@@ -12,7 +12,10 @@ const passport = require("passport");
 const calendarRouter = require("./routers/calendar_router");
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: [
+    "http://localhost:5173",
+    "https://fitness-planner-frontend.onrender.com",
+  ],
   credentials: true, //
 };
 
