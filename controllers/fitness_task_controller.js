@@ -3,8 +3,8 @@ const { client } = require("./../models/db");
 let globalEmail = null;
 
 module.exports.fitnessTask = async (req, res, next) => {
-  console.log("PARAMS", req.params.plan);
-  console.log("email??", req.query.email);
+  //console.log("PARAMS", req.params.plan);
+  //console.log("email??", req.query.email);
   const email = req.query.email;
   globalEmail = email;
   try {
@@ -12,11 +12,11 @@ module.exports.fitnessTask = async (req, res, next) => {
         ORDER BY task_id ASC `; //probably also where the task in not completed
 
     const data = await client.query(getData);
-    // console.log(data.rows);
+    // //console.log(data.rows);
 
     res.send({ data: data.rows });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -29,20 +29,20 @@ module.exports.Delete = async (req, res, next) => {
       message: "Data Deleted",
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 //adding specific task
 module.exports.addTask = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   try {
     let insertData = `INSERT INTO fitness_task (plan, task, plan_id, email) VALUES ('${req.body.plan}','${req.body.data}','${req.body.plan_id}', '${req.body.email}')`;
     const response = await client.query(insertData);
-    console.log("Data Saved");
+    //console.log("Data Saved");
     res.send("Response Received" + response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
