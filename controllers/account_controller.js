@@ -13,17 +13,17 @@ module.exports.loggingIn = async (req, res) => {
     // if user login is successfull then
 
     let token = null;
-    console.log("ISMEMBER", isMember.rowCount);
+    //console.log("ISMEMBER", isMember.rowCount);
     if (isMember.rowCount === 1 || isMember.rowCount === 0) {
       token = jwt.sign({ email: req.body.email }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
 
-      console.log(req.body.email);
+      //console.log(req.body.email);
 
       // three argument variable it will receive, 1. payload (user related information) 2. jwt_secret variable value 3. token expire value
     }
-    console.log(isMember);
+    //console.log(isMember);
     res
       .status(201)
       .cookie("token", token, {
@@ -39,7 +39,7 @@ module.exports.loggingIn = async (req, res) => {
         email: req.body.email,
       });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -76,7 +76,7 @@ module.exports.protect = async (req, res, next) => {
   }
   //*** */ verification token
   const decoded = await jwt.verify(token, process.env.JWT_SECRET); // jwt.ion
-  console.log("decode", decoded);
+  //console.log("decode", decoded);
 
   // ***user is exis in database
   const check_user_query = `SELECT * from member_info WHERE email = '${decoded.email}'`;
@@ -88,7 +88,7 @@ module.exports.protect = async (req, res, next) => {
   }
 
   //*** */ if user chaged password after the token was issued then we can send a error message from here
-  console.log(isUser);
+  //console.log(isUser);
   req.user = {
     email: decoded.email,
   };
@@ -112,7 +112,7 @@ module.exports.autoLogin = async (req, res) => {
   }
   //*** */ verification token
   const decoded = await jwt.verify(token, process.env.JWT_SECRET); // jwt.ion
-  console.log("decode", decoded);
+  //console.log("decode", decoded);
 
   // ***user is exis in database
   const check_user_query = `SELECT * from member_info WHERE email = '${decoded.email}'`;
@@ -124,13 +124,13 @@ module.exports.autoLogin = async (req, res) => {
   }
 
   //*** */ if user chaged password after the token was issued then we can send a error message from here
-  console.log(isUser.rows[0]);
+  //console.log(isUser.rows[0]);
   res.status(200).send(isUser.rows[0]);
 };
 
 module.exports.userInformation = async (req, res) => {
-  console.log("userInformation ");
-  console.log(req.user);
+  //console.log("userInformation ");
+  //console.log(req.user);
   if (req.user) {
     return res.status(200).json({
       message: "User is found",
@@ -144,7 +144,7 @@ module.exports.userInformation = async (req, res) => {
 
 //deletes all the plans under a user. activated from settings page
 module.exports.deleteAllPlans = async (req, res) => {
-  console.log(req.params.email);
+  //console.log(req.params.email);
   try {
     const removeData = `DELETE FROM fitness_task WHERE email ='${req.params.email}'`;
     await client.query(removeData);
@@ -152,13 +152,13 @@ module.exports.deleteAllPlans = async (req, res) => {
       message: "Data Deleted",
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 //deletes all the data under a user. activated from settings page
 module.exports.deleteAccount = async (req, res) => {
-  console.log(req.params.email);
+  //console.log(req.params.email);
   try {
     const removeData = `DELETE FROM member_info WHERE email ='${req.params.email}'`;
     await client.query(removeData);
@@ -166,25 +166,25 @@ module.exports.deleteAccount = async (req, res) => {
       message: "Data Deleted",
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 module.exports.addName = async (req, res) => {
   // try {
-  //   console.log(req);
+  //   //console.log(req);
   //   res.send(req);
   // } catch (error) {
-  //   console.log(error);
+  //   //console.log(error);
   // }
-  console.log(req.body);
+  //console.log(req.body);
   if ((req.body.firstName.length > 0) & (req.body.lastName.length > 0)) {
     try {
       const insertName = `UPDATE member_info SET first_name = '${req.body.firstName}', last_name = '${req.body.lastName}' WHERE email = '${req.body.email}'`;
       const response = await client.query(insertName);
       res.send(response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   } else if ((req.body.firstName.length < 1) & (req.body.lastName.length > 0)) {
     try {
@@ -192,7 +192,7 @@ module.exports.addName = async (req, res) => {
       const response = await client.query(insertName);
       res.send(response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   } else if ((req.body.lastName.length < 1) & (req.body.firstName.length > 0)) {
     try {
@@ -200,7 +200,7 @@ module.exports.addName = async (req, res) => {
       const response = await client.query(insertName);
       res.send(response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 };

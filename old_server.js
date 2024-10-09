@@ -20,10 +20,10 @@ const fileURLToPath = require("url");
 // client
 //   .connect()
 //   .then(() => {
-//     console.log("Connected to PostgreSQL!");
+//     //console.log("Connected to PostgreSQL!");
 //   })
 //   .catch((err) => {
-//     console.log("Error connecting to database:", err);
+//     //console.log("Error connecting to database:", err);
 //   });
 
 // app.use(express.json());
@@ -44,7 +44,7 @@ const fileURLToPath = require("url");
 //       res.send({ data: response.rows });
 //     })
 //     .catch((err) => {
-//       console.log(err);
+//       //console.log(err);
 //     });
 // }); // need to work on getting the data back in
 
@@ -54,11 +54,11 @@ const fileURLToPath = require("url");
 //   client
 //     .query(getData)
 //     .then((response) => {
-//       console.log(response);
+//       //console.log(response);
 //       res.send({ data: response.rows });
 //     })
 //     .catch((err) => {
-//       console.log(err);
+//       //console.log(err);
 //     });
 // });
 // const req = {
@@ -72,35 +72,35 @@ const fileURLToPath = require("url");
 
 //adds data to the data base
 // app.post("/create", (req, res) => {
-//   console.log(req.body.data);
-//   console.log(req.body.plan);
+//   //console.log(req.body.data);
+//   //console.log(req.body.plan);
 //   // res.json(req.body.data);
 //   let insertData = `INSERT INTO fitness_task (plan, task) VALUES ('${req.body.plan}','${req.body.data}')`;
 //   client
 //     .query(insertData)
 //     .then((response) => {
-//       console.log("Data Saved");
-//       console.log(response);
+//       //console.log("Data Saved");
+//       //console.log(response);
 //     })
 //     .catch((err) => {
-//       console.log(err);
+//       //console.log(err);
 //     });
 //   res.send("Response Received" + req.body);
 // });
 
 // app.post("/plans", (req, res) => {
-//   console.log(req.body);
-//   console.log(req.body.plan);
+//   //console.log(req.body);
+//   //console.log(req.body.plan);
 //   // res.json(req.body.data);
 //   let insertData = `INSERT INTO fitness_task (plan, task) VALUES ('${req.body.plan}','${req.body.task}')`;
 //   client
 //     .query(insertData)
 //     .then((response) => {
-//       console.log("Data Saved");
-//       console.log(response);
+//       //console.log("Data Saved");
+//       //console.log(response);
 //     })
 //     .catch((err) => {
-//       console.log(err);
+//       //console.log(err);
 //     });
 //   res.send("Response Received" + req.body);
 // });
@@ -108,22 +108,22 @@ const fileURLToPath = require("url");
 // /api/plans, /api/fitness, /api/fitness
 
 app.delete("/create", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   let deleteData = `DELETE FROM fitness_task WHERE task_id = ${req.body.id}`;
   client
     .query(deleteData)
     .then((response) => {
-      console.log("Data Deleted");
-      console.log(response);
+      //console.log("Data Deleted");
+      //console.log(response);
       res.send(req.body.data);
     })
     .catch((err) => {
-      console.log("error here", err);
+      //console.log("error here", err);
     });
 });
 
 app.listen(3001, () => {
-  // console.log(`Server running on port ${port}.`);
+  // //console.log(`Server running on port ${port}.`);
 });
 
 // // we can import or export using two way

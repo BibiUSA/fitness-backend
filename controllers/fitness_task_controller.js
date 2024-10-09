@@ -4,8 +4,8 @@ let globalEmail = null;
 
 //used to get plans for the create page
 module.exports.fitnessTask = async (req, res, next) => {
-  console.log("PARAMS", req.params.plan);
-  console.log("email??", req.query.email);
+  //console.log("PARAMS", req.params.plan);
+  //console.log("email??", req.query.email);
   const email = req.query.email;
   globalEmail = email;
   try {
@@ -13,18 +13,18 @@ module.exports.fitnessTask = async (req, res, next) => {
         ORDER BY task_id ASC `; //probably also where the task in not completed
 
     const data = await client.query(getData);
-    console.log(data.rows.length);
+    //console.log(data.rows.length);
 
     res.send({ data: data.rows });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 //checks to see if date has 3 plans, if plan is on the date, if not, schedule plan
 module.exports.checkAndAddPlans = async (req, res) => {
-  console.log("PARAMS", req.params.plan);
-  console.log("email??", req.query.email);
+  //console.log("PARAMS", req.params.plan);
+  //console.log("email??", req.query.email);
   const email = req.query.email;
   globalEmail = email;
   try {
@@ -36,13 +36,13 @@ module.exports.checkAndAddPlans = async (req, res) => {
       //check to see if the plan we requested is one of the plans. if it is, alert back
       for (let i = 0; i < data.rows.length; i++) {
         let thisPlan = data.rows[i].plan;
-        console.log(thisPlan);
+        //console.log(thisPlan);
         if (thisPlan === req.params.plan) {
           exist = true;
           res.send(true);
         }
       }
-      console.log(exist);
+      //console.log(exist);
       //if plans doesn't exist, add to the calendar
       if (!exist) {
         try {
@@ -57,7 +57,7 @@ module.exports.checkAndAddPlans = async (req, res) => {
           const dataTwo = await client.query(newData);
           res.send({ data: dataTwo });
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
       }
       //if there are 3 plans
@@ -65,7 +65,7 @@ module.exports.checkAndAddPlans = async (req, res) => {
       res.send(false);
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -78,20 +78,20 @@ module.exports.Delete = async (req, res, next) => {
       message: "Data Deleted",
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
 //adding specific task
 module.exports.addTask = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   try {
     let insertData = `INSERT INTO fitness_task (plan, task, plan_id, email) VALUES ('${req.body.plan}','${req.body.data}','${req.body.plan_id}', '${req.body.email}')`;
     const response = await client.query(insertData);
-    console.log("Data Saved");
+    //console.log("Data Saved");
     res.send("Response Received" + response);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
