@@ -20,10 +20,10 @@ const app = require("./app");
 client
   .connect()
   .then(() => {
-    //console.log("Connected to PostgreSQL!");
+    console.log("Connected to PostgreSQL!");
   })
   .catch((err) => {
-    //console.log("Error connecting to database:", err);
+    console.log("Error connecting to database:", err);
   });
 
 // const process = {
@@ -35,5 +35,5 @@ client
 const port = process.env.PORT; // || 3001
 
 app.listen(port, () => {
-  //console.log(`Server running on port ${port}.`);
+  console.log(`Server running on port ${port}.`);
 });
